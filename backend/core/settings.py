@@ -41,6 +41,7 @@ INSTALLED_APPS = [
 
     # Local apps
     'core.authentication',
+    'core.recommendation',
 ]
 
 MIDDLEWARE = [
