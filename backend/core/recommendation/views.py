@@ -18,4 +18,3 @@ class MovieViewSet(viewsets.ModelViewSet):
         if self.action in ['list', 'retrieve']:
             return self.read_serializer_class
         return self.write_serializer_class
-
