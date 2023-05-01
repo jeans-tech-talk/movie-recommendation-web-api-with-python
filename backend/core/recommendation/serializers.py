@@ -1,6 +1,7 @@
 from rest_framework import serializers
 
-from core.recommendation.models import Genre, Movie
+from core.authentication.serializers import UserWatchlist
+from core.recommendation.models import Genre, Movie, Watchlist
 
 
 class GenreSerializer(serializers.ModelSerializer):
@@ -25,4 +26,26 @@ class MovieReadSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Movie
+        fields = '__all__'
+
+
+class WatchlistWriteSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Watchlist
+        fields = ['movie']
+
+    def create(self, validated_data):
+        request = self.context.get('request')
+        return Watchlist.objects.create(
+            user=request.user,
+            movie=validated_data.get('movie'),
+        )
+
+
+class WatchlistReadSerializer(serializers.ModelSerializer):
+    user = UserWatchlist()
+    movie = MovieReadSerializer()
+
+    class Meta:
+        model = Watchlist
         fields = '__all__'
