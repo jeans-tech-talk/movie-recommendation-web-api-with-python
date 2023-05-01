@@ -3,12 +3,13 @@ from django.urls import path, include
 from rest_framework import routers
 
 from core.authentication.views import UserViewSet
-from core.recommendation.views import GenreViewSet, MovieViewSet
+from core.recommendation.views import GenreViewSet, MovieViewSet, WatchlistViewSet
 
 router = routers.DefaultRouter()
 router.register('genres', GenreViewSet)
 router.register('movies', MovieViewSet)
 router.register('users', UserViewSet)
+router.register('watchlists', WatchlistViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
