@@ -15,6 +15,12 @@ class Movie(models.Model):
         'recommendation.Genre',
         related_name='movies',
     )
+    users = models.ManyToManyField(
+        get_user_model(),
+        related_name='movies',
+        through='recommendation.Review',
+        blank=True,
+    )
 
     objects = models.Manager()
 
@@ -31,5 +37,25 @@ class Watchlist(models.Model):
         related_name='watchlists',
     )
     date_added = models.DateTimeField(auto_now_add=True)
+
+    objects = models.Manager()
+
+
+class Review(models.Model):
+    user = models.ForeignKey(
+        get_user_model(),
+        on_delete=models.CASCADE,
+        related_name='reviews',
+    )
+    movie = models.ForeignKey(
+        'recommendation.Movie',
+        on_delete=models.CASCADE,
+        related_name='reviews',
+    )
+    rating = models.DecimalField(
+        max_digits=3,
+        decimal_places=1,
+    )
+    text = models.TextField()
 
     objects = models.Manager()
