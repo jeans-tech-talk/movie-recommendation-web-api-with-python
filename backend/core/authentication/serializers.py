@@ -82,7 +82,7 @@ class ChangePasswordSerializer(serializers.ModelSerializer):
         return instance
 
 
-class UserWatchlist(serializers.ModelSerializer):
+class UserWatchlistReadSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = [
@@ -90,3 +90,7 @@ class UserWatchlist(serializers.ModelSerializer):
             'first_name',
             'last_name',
         ]
+
+
+class UserReviewMovieReadSerializer(UserWatchlistReadSerializer):
+    pass
