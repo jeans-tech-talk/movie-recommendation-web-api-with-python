@@ -1,8 +1,8 @@
 from rest_framework import viewsets
 
-from core.recommendation.models import Genre, Movie, Watchlist
+from core.recommendation.models import Genre, Movie, Watchlist, Review
 from core.recommendation.serializers import GenreSerializer, MovieWriteSerializer, MovieReadSerializer, \
-    WatchlistWriteSerializer, WatchlistReadSerializer
+    WatchlistWriteSerializer, WatchlistReadSerializer, ReviewSerializer
 
 
 class GenreViewSet(viewsets.ModelViewSet):
@@ -30,3 +30,8 @@ class WatchlistViewSet(viewsets.ModelViewSet):
         if self.action in ['list', 'retrieve']:
             return self.read_serializer_class
         return self.write_serializer_class
+
+
+class ReviewViewSet(viewsets.ModelViewSet):
+    queryset = Review.objects.order_by('-id')
+    serializer_class = ReviewSerializer
